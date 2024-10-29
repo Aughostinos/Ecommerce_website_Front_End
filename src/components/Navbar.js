@@ -3,19 +3,18 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import BACKEND_URL from '../config';
-import './Navbar.css'; // Import CSS styles
+import './Navbar.css'; // Import CSS
 
 const Navbar = ({ loggedInUser, setLoggedInUser }) => {
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
-  const [dropdownVisible, setDropdownVisible] = useState(false);
 
   // Fetch categories from the backend
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(`${BACKEND_URL}/category/get-categories`);
-        const validCategories = response.data.filter((cat) => cat.categoryName); // Filter valid categories
+        const validCategories = response.data.filter((cat) => cat.categoryName); // Filter valid ones
         setCategories(validCategories);
       } catch (error) {
         console.error('Failed to fetch categories:', error);
@@ -41,21 +40,14 @@ const Navbar = ({ loggedInUser, setLoggedInUser }) => {
       <ul className="nav-menu">
         <li><Link to="/">Home</Link></li>
         <li className="dropdown">
-          <span 
-            onMouseEnter={() => setDropdownVisible(true)} 
-            onMouseLeave={() => setDropdownVisible(false)}
-          >
-            Categories ▼
-          </span>
-          {dropdownVisible && (
-            <ul className="dropdown-content">
-              {categories.map((category) => (
-                <li key={category._id}>
-                  <Link to={`/category/${category._id}`}>{category.categoryName}</Link>
-                </li>
-              ))}
-            </ul>
-          )}
+          <span>Categories ▼</span>
+          <ul className="dropdown-content">
+            {categories.map((category) => (
+              <li key={category._id}>
+                <Link to={`/category/${category._id}`}>{category.categoryName}</Link>
+              </li>
+            ))}
+          </ul>
         </li>
         <li><Link to="/about-us">About Us</Link></li>
         <li><Link to="/contact-us">Contact Us</Link></li>

@@ -11,6 +11,9 @@ import Home from './pages/Home';
 import CategoryPage from './pages/CategoryPage';
 import ProductDetailsPage from './pages/ProductDetailsPage';
 import NotFound from './pages/NotFound';
+import CartPage from './pages/CartPage';
+import CheckoutPage from './pages/CheckoutPage';
+import OrderConfirmationPage from './pages/OrderConfirmationPage';
 import axios from 'axios';
 import BACKEND_URL from './config';
 import './App.css';
@@ -45,6 +48,12 @@ const App = () => {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/product/:id" element={<ProductDetailsPage />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/checkout" element={loggedInUser ? <CheckoutPage /> : <Navigate to="/login" />} />
+        <Route
+          path="/order-confirmation/:id"
+          element={loggedInUser ? <OrderConfirmationPage /> : <Navigate to="/login" />}
+        />
         <Route
           path="/profile"
           element={loggedInUser ? <Profile /> : <Navigate to="/login" />}

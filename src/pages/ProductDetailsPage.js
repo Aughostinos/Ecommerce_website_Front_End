@@ -82,6 +82,7 @@ const ProductDetailsPage = () => {
   };
 
   if (!product) return <p>Loading...</p>;
+  console.log(product.image);
 
   return (
     <div className="product-details">

@@ -17,6 +17,7 @@ const CategoryPage = () => {
       try {
         const response = await axios.get(`${BACKEND_URL}/products/get-products-by-category/${id}`);
         setProducts(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error('Failed to fetch products:', error);
       }
@@ -93,7 +94,7 @@ const CategoryPage = () => {
         {products.map((product) => (
           <div key={product._id} className="product-card">
             <img
-              src={product.image || 'default-image-url.jpg'}
+              src={product.image[0] || 'default-image-url.jpg'}
               alt={product.name}
               onClick={() => handleProductClick(product._id)}
             />

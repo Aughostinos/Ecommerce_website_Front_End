@@ -1,9 +1,8 @@
-// src/components/Navbar.js
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import BACKEND_URL from '../config';
-import './Navbar.css'; // Import CSS
+import './Navbar.css';
 
 const Navbar = ({ loggedInUser, setLoggedInUser }) => {
   const navigate = useNavigate();
@@ -14,7 +13,7 @@ const Navbar = ({ loggedInUser, setLoggedInUser }) => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(`${BACKEND_URL}/category/get-categories`);
-        const validCategories = response.data.filter((cat) => cat.categoryName); // Filter valid ones
+        const validCategories = response.data.filter((cat) => cat.categoryName);
         setCategories(validCategories);
       } catch (error) {
         console.error('Failed to fetch categories:', error);

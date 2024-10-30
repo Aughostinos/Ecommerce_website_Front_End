@@ -8,6 +8,11 @@ import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import Profile from './pages/Profile';
 import Home from './pages/Home';
+import CategoryPage from './pages/CategoryPage';
+import ProductDetailsPage from './pages/ProductDetailsPage';
+import NotFound from './pages/NotFound';
+import axios from 'axios';
+import BACKEND_URL from './config';
 import './App.css';
 
 const App = () => {
@@ -15,11 +20,18 @@ const App = () => {
 
   // Check if user is logged in by checking the JWT cookie
   useEffect(() => {
-    const jwt = document.cookie.split('; ').find((row) => row.startsWith('jwt='));
-    if (jwt) {
-      // Simulate fetching user details (replace with API call if necessary)
-      setLoggedInUser({ name: 'John Doe' }); // Replace with real user data
-    }
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get(`${BACKEND_URL}/auth/user`, {
+          withCredentials: true,
+        });
+        setLoggedInUser(response.data.user);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+  
+    fetchUserData();
   }, []);
 
   return (
@@ -27,14 +39,17 @@ const App = () => {
       <Navbar loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/category/:id" element={<CategoryPage />} />
         <Route path="/login" element={<Login setLoggedInUser={setLoggedInUser} />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/product/:id" element={<ProductDetailsPage />} />
         <Route
           path="/profile"
           element={loggedInUser ? <Profile /> : <Navigate to="/login" />}
         />
+         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

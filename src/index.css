@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.navbar {
+  background-color: #008080;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.slider {
+  margin-top: 15px;
+}
+
+.slide img {
+  width: 100%;
+  height: auto;
+}

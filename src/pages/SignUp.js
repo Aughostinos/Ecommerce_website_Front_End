@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import BACKEND_URL from '../config';
 import './AuthForms.css';
+import { useNavigate } from 'react-router-dom';
+
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     userName: '',
@@ -23,9 +26,10 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${BACKEND_URL}/auth/register`, formData);
-      setMessage('Account created successfully! Please log in.');
+      await axios.post(`${BACKEND_URL}/auth/register`, formData);
+      setMessage('Account created successfully! Redirecting to login...');
       setErrors({});
+      setTimeout(() => navigate('/login'), 2000);
     } catch (error) {
       setErrors(error.response?.data.errors || {});
     }

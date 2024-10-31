@@ -1,31 +1,75 @@
 .featured-products {
-    padding: 20px;
-  }
-  
-  .products-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
-  }
-  
-  .product-card {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-  }
-  
-  .product-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-  }
-  
-  .product-card button {
-    background-color: #24b3ba;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+.title {
+  margin-bottom: 20px;
+  color: #19737a;
+  text-align: center;
+  display: flexbox;
+}
+
+.product-card {
+  width: 200px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+}
+
+.product-image {
+  position: relative;
+}
+
+.product-image img {
+  width: 100%;
+  height: auto;
+}
+
+.favorite-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.favorite-button i {
+  font-size: 24px;
+  color: #ccc;
+}
+
+.favorite-button.favorited i {
+  color: red;
+}
+
+.product-info {
+  padding: 10px;
+  text-align: center;
+}
+
+.product-info h3 {
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.product-info p {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.product-info button {
+  padding: 10px 15px;
+  background-color: #19737a;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.product-info button:hover {
+  background-color: #24b3ba;
+}

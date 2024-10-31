@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import BACKEND_URL from '../config';
-import './AuthForms.css';
+import './SignUp.css';
 import { useNavigate } from 'react-router-dom';
 
 

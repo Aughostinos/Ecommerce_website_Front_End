@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import BACKEND_URL from '../config';
 import { useNavigate } from 'react-router-dom';
-import '../theme.css';
+import './CheckoutPage.css';
 
 const CheckoutPage = () => {
   const [shippingAddress, setShippingAddress] = useState({

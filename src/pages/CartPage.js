@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import BACKEND_URL from '../config';
 import { useNavigate } from 'react-router-dom';
+import './CartPage.css';
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);

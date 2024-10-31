@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import './Slider.css';
 
 const slides = [
-  { id: 1, image: '/images/slide1.jpg', text: 'Discover Our Latest Collection' },
-  { id: 2, image: '/images/slide2.jpg', text: 'Flash Sale is Live!' },
-  { id: 3, image: '/images/slide3.jpg', text: 'Don’t Miss Out on Discounts!' }
+  { id: 1, image: '/images/slide1.png' },
+  { id: 2, image: '/images/slide2.png'},
+  { id: 3, image: '/images/slide3.jpg'}
 ];
 
 const Slider = () => {

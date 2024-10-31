@@ -1,12 +1,11 @@
-.forgot-password-container {
-    margin-top: 70px;
+.auth-container {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 80vh;
   }
   
-  .forgot-password-form {
+  .auth-form {
     width: 400px;
     padding: 30px;
     border-radius: 8px;
@@ -14,26 +13,26 @@
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   }
   
-  .forgot-password-form h2 {
+  .auth-form h2 {
     text-align: center;
     margin-bottom: 20px;
     color: #19737a;
   }
   
-  .forgot-password-form input {
-    width: 100%;
+  .auth-form input {
+    width: 94%;
     padding: 12px;
     margin: 10px 0;
     border-radius: 5px;
     border: 1px solid #ddd;
   }
   
-  .forgot-password-form input:focus {
+  .auth-form input:focus {
     outline: none;
     border-color: #19737a;
   }
   
-  .forgot-password-form button {
+  .auth-form button {
     width: 100%;
     padding: 12px;
     background-color: #19737a;
@@ -43,11 +42,29 @@
     cursor: pointer;
   }
   
-  .forgot-password-form button:hover {
+  .auth-form button:hover {
     background-color: #24b3ba;
   }
   
-  .message {
+  .auth-form a {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #19737a;
+    text-decoration: none;
+  }
+  
+  .auth-form a:hover {
+    text-decoration: underline;
+  }
+  
+  .error {
+    color: red;
+    font-size: 14px;
+  }
+  
+  .success-message {
     color: green;
     text-align: center;
     margin-top: 10px;

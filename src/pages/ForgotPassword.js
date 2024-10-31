@@ -18,9 +18,9 @@ const ForgotPassword = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='.forgot-password-container'>
       <h2>Forgot Password</h2>
-      <input
+      <input 
         type="email"
         name="email"
         placeholder="Enter your email"

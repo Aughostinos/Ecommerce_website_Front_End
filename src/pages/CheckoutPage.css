@@ -1,0 +1,41 @@
+.checkout-page {
+    padding: 20px;
+  }
+  
+  .checkout-page h2 {
+    margin-bottom: 20px;
+    color: #19737a;
+  }
+  
+  .shipping-form, .payment-method {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .shipping-form h3, .payment-method h3 {
+    margin-bottom: 15px;
+  }
+  
+  .shipping-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .checkout-page button {
+    background-color: #19737a;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .checkout-page button:hover {
+    background-color: #24b3ba;
+  }
+  

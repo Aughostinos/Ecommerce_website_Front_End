@@ -12,24 +12,27 @@ const Navbar = ({ loggedInUser, setLoggedInUser }) => {
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [wishlistItemCount, setWishlistItemCount] = useState(0);
 
   // Fetch cart item count
   useEffect(() => {
-    const fetchCartItemCount = async () => {
+    const fetchCounts = async () => {
       try {
         const response = await axios.get(`${BACKEND_URL}/user/get-cart-wishlist`, {
           withCredentials: true,
         });
         const cartItems = response.data.cart || [];
-        const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
-        setCartItemCount(itemCount);
+        const wishlistItems = response.data.wishlist || [];
+        const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+        setCartItemCount(cartCount);
+        setWishlistItemCount(wishlistItems.length);
       } catch (error) {
-        console.error('Failed to fetch cart items:', error);
+        console.error('Failed to fetch counts:', error);
       }
     };
 
     if (loggedInUser) {
-      fetchCartItemCount();
+      fetchCounts();
     }
   }, [loggedInUser]);
 
@@ -129,7 +132,11 @@ const Navbar = ({ loggedInUser, setLoggedInUser }) => {
       )}
 
       <div className="navbar-right">
-        {/* Search Icon and Input */}
+        
+        <Link to="/wishlist" className="wishlist-icon">
+          ❤️<span className="wishlist-count">{wishlistItemCount}</span>
+        </Link>
+
         <div className="search-container">
           <button className="search-icon" onClick={handleSearchIconClick}>
             🔍

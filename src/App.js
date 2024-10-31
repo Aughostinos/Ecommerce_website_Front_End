@@ -14,6 +14,7 @@ import NotFound from './pages/NotFound';
 import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
 import OrderConfirmationPage from './pages/OrderConfirmationPage';
+import WishlistPage from './pages/WishlistPage';
 import axios from 'axios';
 import BACKEND_URL from './config';
 import './App.css';
@@ -57,6 +58,10 @@ const App = () => {
         <Route
           path="/profile"
           element={loggedInUser ? <Profile /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/wishlist"
+          element={loggedInUser ? <WishlistPage /> : <Navigate to="/login" />}
         />
          <Route path="*" element={<NotFound />} />
       </Routes>

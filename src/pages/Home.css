@@ -1,63 +1,61 @@
 .home-page {
-    padding: 20px;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 20px;
+  background-color: #f9f9f9;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+.home-page h2 {
+  text-align: center;
+  margin: 40px 0 20px;
+  font-size: 28px;
+  color: #19737a;
+}
+
+/* Slider Section */
+.slider {
+  margin-bottom: 40px;
+}
+
+/* Featured Products Section */
+.featured-products {
+  margin: 40px 0;
+}
+
+/* Flash Sale Section */
+.flash-sale {
+  margin: 40px 0;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Testimonials Section */
+.testimonials {
+  margin: 40px 0;
+}
+
+/* Media Queries for Mobile Responsiveness */
+@media (max-width: 768px) {
+  .products-grid {
+    grid-template-columns: 1fr 1fr;
   }
-  
-  /* Section Titles */
-  .home-page h2 {
-    text-align: center;
-    margin: 20px 0;
-    font-size: 28px;
-    color: #19737a;
+
+  .testimonials-slider {
+    overflow-x: scroll;
   }
-  
-  /* Slider Section */
-  .slider {
-    margin-bottom: 40px;
+
+  .testimonial {
+    min-width: 80%;
   }
-  
-  /* Featured Products Section */
-  .featured-products {
-    margin: 40px 0;
+}
+
+@media (max-width: 480px) {
+  .products-grid {
+    grid-template-columns: 1fr;
   }
-  
-  /* Flash Sale Section */
+
   .flash-sale {
-    margin: 40px 0;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
   }
-  
-  /* Testimonials Section */
-  .testimonials {
-    margin: 40px 0;
-  }
-  
-  /* Media Queries for Mobile Responsiveness */
-  @media (max-width: 768px) {
-    .products-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-  
-    .testimonials-slider {
-      overflow-x: scroll;
-    }
-  
-    .testimonial {
-      min-width: 80%;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .products-grid {
-      grid-template-columns: 1fr;
-    }
-  
-    .flash-sale {
-      padding: 10px;
-    }
-  }
-  
+}

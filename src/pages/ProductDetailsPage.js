@@ -77,8 +77,16 @@ const ProductDetailsPage = () => {
     }
   };
 
-  const handleImageChange = (index) => {
-    setCurrentImageIndex(index);
+  const handlePrevImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === 0 ? product.image.length - 1 : prevIndex - 1
+    );
+  };
+
+  const handleNextImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === product.image.length - 1 ? 0 : prevIndex + 1
+    );
   };
 
   if (!product) return <p>Loading...</p>;
@@ -87,9 +95,17 @@ const ProductDetailsPage = () => {
   return (
     <div className="product-details">
       <div className="product-images">
-        <div className="main-image">
+        {/* Carousel */}
+        <div className="carousel">
+          <button className="carousel-control prev" onClick={handlePrevImage}>
+            ❮
+          </button>
           <img src={product.image[currentImageIndex]} alt={product.name} />
+          <button className="carousel-control next" onClick={handleNextImage}>
+            ❯
+          </button>
         </div>
+        {/* Thumbnail Images */}
         <div className="thumbnail-images">
           {product.image.map((imgUrl, index) => (
             <img
@@ -97,7 +113,7 @@ const ProductDetailsPage = () => {
               src={imgUrl}
               alt={`${product.name} ${index + 1}`}
               className={currentImageIndex === index ? 'active' : ''}
-              onClick={() => handleImageChange(index)}
+              onClick={() => setCurrentImageIndex(index)}
             />
           ))}
         </div>

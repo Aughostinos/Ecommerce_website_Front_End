@@ -32,7 +32,7 @@ const Navbar = ({ loggedInUser, setLoggedInUser }) => {
     <nav className="navbar">
       <div className="navbar-left">
         <Link to="/">
-          <img src="/images/logo.png" alt="E-Shop Logo" className="logo" />
+          <img src="images/Logo.png" alt="E-Shop" className="logo" />
         </Link>
       </div>
 

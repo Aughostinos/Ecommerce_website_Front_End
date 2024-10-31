@@ -1,0 +1,37 @@
+.search-results-page {
+    padding: 20px;
+  }
+  
+  .search-product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .search-product-card {
+    width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    text-align: center;
+  }
+  
+  .search-product-card img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .product-info {
+    padding: 10px;
+  }
+  
+  .product-info h3 {
+    font-size: 16px;
+    margin: 10px 0;
+  }
+  
+  .product-info p {
+    font-size: 14px;
+    color: #19737a;
+  }
+  

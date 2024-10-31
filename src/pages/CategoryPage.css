@@ -55,7 +55,11 @@
   transition: color 0.3s;
 }
 
-.wishlist-button.active {
+.wishlist-button.outlined {
+  color: #ccc;
+}
+
+.wishlist-button.filled {
   color: red;
 }
 

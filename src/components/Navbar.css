@@ -1,324 +1,275 @@
 .navbar {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
+  background-color: #19737a;
   padding: 10px 20px;
-  padding-right: 10px;
-  background-color: var(--navbar-background);
-  color: var(--navbar-text-color);
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 98%;
-  z-index: 100;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
-/* Logo Styling */
-.logo {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-/* Navbar Menu */
-.nav-menu {
-  list-style: none;
+.navbar-left {
   display: flex;
-  gap: 30px;
   align-items: center;
+}
+
+.logo {
+  margin-right: 20px;
+}
+
+.logo-image {
+  height: 40px;
+  border-radius: 50%;
+}
+
+.nav-menu {
+  list-style-type: none;
+  display: flex;
   margin: 0;
   padding: 0;
 }
 
 .nav-menu li {
   position: relative;
+  margin-right: 20px;
 }
 
-.nav-menu a {
+.nav-menu li a,
+.nav-menu li span {
+  list-style-type: none;
+  color: white;
   text-decoration: none;
-  color: var(--navbar-text-color);
-  font-weight: bold;
-  transition: color 0.3s;
+  padding: 8px 12px;
+  display: block;
 }
 
-.nav-menu a:hover {
-  color: var(--link-hover-color);
+.nav-menu li a:hover,
+.nav-menu li span:hover {
+  background-color: #24b3ba;
+  border-radius: 4px;
 }
 
-/* Dropdown Menu */
-.dropdown {
+/* Dropdown Menu Styles */
+.dropdown-menu {
+  list-style-type: none;
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 160px;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.dropdown-menu li {
+  margin: 0;
+}
+
+.dropdown-menu li a {
+  color: #333;
+  padding: 10px 16px;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #24b3ba;
+}
+
+.nav-menu li.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/* User Dropdown Menu Styles */
+.user-menu-container {
   position: relative;
   display: inline-block;
 }
 
-.dropdown span {
+.user-info {
+  display: flex;
+  align-items: center;
   cursor: pointer;
 }
 
-.dropdown-content {
+.user-name {
+  color: white;
+  margin-right: 8px;
+}
+
+.user-icon-image {
+  height: 32px;
+  width: 35px;;
+  border-radius: 50%;
+}
+
+.user-dropdown-menu {
   display: none;
   position: absolute;
-  background-color: white;
+  text-align: left;
+  top: 100%;
+  background-color: #fff;
   min-width: 160px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  list-style: none;
-  padding: 10px 0;
-  border-radius: 8px;
-  right: 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-.dropdown-content li {
-  padding: 8px 12px;
+.user-menu-container:hover .user-dropdown-menu {
+  display: block;
 }
 
-.dropdown-content li a {
+.user-dropdown-menu a,
+.user-dropdown-menu button {
+  color: #333;
+  padding: 10px 16px;
   text-decoration: none;
-  color: var(--text-color);
   display: block;
-  transition: background-color 0.2s;
+  text-align: left;
+  background: none;
+  border: none;
+  width: 100%;
+  cursor: pointer;
 }
 
-.dropdown-content li:hover {
-  background-color: var(--primary-color);
-  color: white;
+.user-dropdown-menu a:hover,
+.user-dropdown-menu button:hover {
+  background-color: #24b3ba;
 }
 
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-/* Right Section of the Navbar */
 .navbar-right {
   display: flex;
   align-items: center;
-  gap: 20px;
 }
 
-/* Wishlist Icon */
-.wishlist-icon {
-  font-size: 24px;
-  position: relative;
-  cursor: pointer;
-  color: var(--navbar-text-color);
+.admin-link {
+  color: white;
+  margin-right: 20px;
   text-decoration: none;
 }
 
-.wishlist-count {
+.wishlist-icon,
+.cart-icon {
+  color: white;
+  text-decoration: none;
+  margin-right: 10px;
+  position: relative;
+  font-size: 20px;
+}
+
+.wishlist-count,
+.cart-count {
   position: absolute;
   top: -5px;
-  right: -10px;
+  right: -15px;
   background-color: red;
   color: white;
   border-radius: 50%;
   padding: 2px 6px;
   font-size: 12px;
-  font-weight: bold;
 }
 
-/* Search Icon */
 .search-container {
   position: relative;
+  margin-right: 0;
 }
 
 .search-icon {
   background: none;
   border: none;
-  font-size: 24px;
+  color: white;
   cursor: pointer;
-  color: var(--navbar-text-color);
-  transition: color 0.3s;
+  font-size: 20px;
 }
 
 .search-form {
   position: absolute;
-  top: 40px;
+  top: 100%;
   right: 0;
-  display: flex;
 }
 
 .search-form input {
   padding: 5px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
-/* Theme Toggle Button */
 .theme-toggle {
   background: none;
   border: none;
-  font-size: 24px;
+  color: white;
   cursor: pointer;
-  color: var(--navbar-text-color);
-  transition: color 0.3s;
+  margin-right: 20px;
 }
 
-/* Cart Icon */
-.cart-icon {
-  font-size: 24px;
-  position: relative;
-  cursor: pointer;
-  color: var(--navbar-text-color);
+.auth-links {
+  color: white;
+}
+
+.auth-links a {
+  color: white;
   text-decoration: none;
 }
 
-.cart-count {
-  position: absolute;
-  top: -5px;
-  right: -10px;
-  background-color: red;
-  color: white;
-  border-radius: 50%;
-  padding: 2px 6px;
-  font-size: 12px;
-  font-weight: bold;
+.auth-links a:hover {
+  text-decoration: underline;
 }
 
-/* User Info Section */
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  position: relative;
-  cursor: pointer;
-}
-
-.user-info .user-name {
-  font-weight: bold;
-  color: var(--navbar-text-color);
-  white-space: nowrap;
-}
-
-.user-info img {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.user-info img:hover {
-  transform: scale(1.1);
-}
-
-/* Dropdown under User Info */
-.user-info .dropdown {
-  display: none;
-  position: absolute;
-  top: 40px;
-  right: 0;
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  z-index: 101;
-}
-
-.user-info:hover .dropdown {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.user-info .dropdown a {
-  color: var(--text-color);
-  text-decoration: none;
-}
-
-.user-info .dropdown button {
-  background: none;
-  border: none;
-  color: var(--text-color);
-  cursor: pointer;
-  text-align: left;
-  padding: 0;
-}
-
-/* General Button Styling */
-button {
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  border-radius: 5px;
-}
-
-button:hover {
-  background-color: var(--secondary-color);
-}
-
-/* Mobile Menu Toggle */
+/* Mobile Styles */
 .mobile-menu-toggle {
   display: none;
   font-size: 24px;
   cursor: pointer;
+  color: white;
 }
 
-/* Mobile Nav Menu */
 .mobile-nav-menu {
-  position: fixed;
-  top: 0;
+  position: absolute;
+  top: 60px;
   left: 0;
-  width: 250px;
-  height: 100%;
-  background-color: var(--navbar-background);
-  padding-top: 60px;
-  z-index: 200;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
+  background-color: #19737a;
+  width: 100%;
+  z-index: 2;
 }
 
 .mobile-nav-menu li {
-  padding: 15px 20px;
+  margin: 0;
 }
 
-.mobile-nav-menu li a {
-  color: var(--navbar-text-color);
+.mobile-nav-menu li a,
+.mobile-nav-menu li span {
+  color: white;
+  padding: 12px 16px;
   text-decoration: none;
-  font-size: 18px;
+  display: block;
+}
+
+.mobile-nav-menu li a:hover,
+.mobile-nav-menu li span:hover {
+  background-color: #24b3ba;
 }
 
 .mobile-nav-menu .dropdown-content {
   display: block;
-  position: static;
-  background-color: transparent;
-  box-shadow: none;
-  padding: 0;
+  background-color: #19737a;
 }
 
-.mobile-nav-menu .dropdown-content li {
-  padding-left: 40px;
-}
-
-/* Hide desktop menu on mobile */
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .nav-menu {
-    display: none;
-  }
-
-  .navbar-right {
     display: none;
   }
 
   .mobile-menu-toggle {
     display: block;
   }
+
+  .navbar-right {
+    display: none;
+  }
 }
 
-/*admin link styling*/
-.admin-link {
-  color: var(--navbar-text-color);
-  text-decoration: none;
-  font-weight: bold;
-  margin-left: 20px;
-}
-
-.admin-link:hover {
-  color: var(--link-hover-color);
+/* Search Input on Mobile */
+@media screen and (max-width: 768px) {
+  .search-form {
+    position: static;
+    margin-top: 10px;
+  }
 }

@@ -1,4 +1,3 @@
-// Navbar.js
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -13,9 +12,11 @@ const Navbar = ({ loggedInUser, setLoggedInUser }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [wishlistItemCount, setWishlistItemCount] = useState(0);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const [showMobileCategories, setShowMobileCategories] = useState(false);
   const isAdmin = loggedInUser && loggedInUser.role === 'admin';
 
-  // Fetch cart item count
+  // Fetch cart and wishlist item counts
   useEffect(() => {
     const fetchCounts = async () => {
       try {
@@ -73,19 +74,21 @@ const Navbar = ({ loggedInUser, setLoggedInUser }) => {
   return (
     <nav className="navbar">
       <div className="navbar-left">
-        <div className='logo'>
-        <Link to="/">
-          <img src="/images/Logo.png" alt="E-Shop" className="logo" />
-        </Link>
+        <div className="logo">
+          <Link to="/">
+            <img src="/images/Logo.png" alt="E-Shop" className="logo-image" />
+          </Link>
         </div>
       </div>
 
       {/* Desktop Menu */}
       <ul className="nav-menu">
         <li><Link to="/">Home</Link></li>
-        <li className="dropdown">
-          <span>Categories ▼</span>
-          <ul className="dropdown-content">
+        <li
+          className="dropdown"
+        >
+          <span className="dropdown-toggle">Categories ▼</span>
+          <ul className="dropdown-menu">
             {categories.map((category) => (
               <li key={category._id}>
                 <Link to={`/category/${category._id}`}>{category.categoryName}</Link>
@@ -95,6 +98,12 @@ const Navbar = ({ loggedInUser, setLoggedInUser }) => {
         </li>
         <li><Link to="/about-us">About Us</Link></li>
         <li><Link to="/contact-us">Contact Us</Link></li>
+        <li>{isAdmin && (
+          <Link to="/admin" className="admin-link">
+            Admin Panel
+          </Link>
+        )}</li>
+
       </ul>
 
       {/* Mobile Menu Toggle */}
@@ -106,17 +115,19 @@ const Navbar = ({ loggedInUser, setLoggedInUser }) => {
       {isMobileMenuOpen && (
         <ul className="mobile-nav-menu">
           <li><Link to="/" onClick={() => setIsMobileMenuOpen(false)}>Home</Link></li>
-          <li className="dropdown">
-            <span>Categories ▼</span>
-            <ul className="dropdown-content">
-              {categories.map((category) => (
-                <li key={category._id}>
-                  <Link to={`/category/${category._id}`} onClick={() => setIsMobileMenuOpen(false)}>
-                    {category.categoryName}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          <li>
+            <span onClick={() => setShowMobileCategories(!showMobileCategories)}>Categories ▼</span>
+            {showMobileCategories && (
+              <ul className="dropdown-content">
+                {categories.map((category) => (
+                  <li key={category._id}>
+                    <Link to={`/category/${category._id}`} onClick={() => { setIsMobileMenuOpen(false); setShowMobileCategories(false); }}>
+                      {category.categoryName}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
           </li>
           <li><Link to="/about-us" onClick={() => setIsMobileMenuOpen(false)}>About Us</Link></li>
           <li><Link to="/contact-us" onClick={() => setIsMobileMenuOpen(false)}>Contact Us</Link></li>
@@ -124,7 +135,7 @@ const Navbar = ({ loggedInUser, setLoggedInUser }) => {
             <>
               <li><Link to="/profile" onClick={() => setIsMobileMenuOpen(false)}>Profile</Link></li>
               <li><Link to="/order-history" onClick={() => setIsMobileMenuOpen(false)}>Order History</Link></li>
-              <li><button onClick={handleLogout}>Logout</button></li>
+              <li><button onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }}>Logout</button></li>
             </>
           ) : (
             <li><Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>Sign In / Sign Up</Link></li>
@@ -133,16 +144,6 @@ const Navbar = ({ loggedInUser, setLoggedInUser }) => {
       )}
 
       <div className="navbar-right">
-        {isAdmin && (
-          <Link to="/admin" className="admin-link">
-            Admin Panel
-          </Link>
-        )}
-        
-        <Link to="/wishlist" className="wishlist-icon">
-          ❤️<span className="wishlist-count">{wishlistItemCount}</span>
-        </Link>
-
         <div className="search-container">
           <button className="search-icon" onClick={handleSearchIconClick}>
             🔍
@@ -158,6 +159,12 @@ const Navbar = ({ loggedInUser, setLoggedInUser }) => {
             </form>
           )}
         </div>
+
+        <Link to="/wishlist" className="wishlist-icon">
+          ❤️<span className="wishlist-count">{wishlistItemCount}</span>
+        </Link>
+
+
         <button
           className="theme-toggle"
           onClick={() => document.documentElement.setAttribute(
@@ -167,20 +174,28 @@ const Navbar = ({ loggedInUser, setLoggedInUser }) => {
         >
           🌙
         </button>
-        
+
         <Link to="/cart" className="cart-icon">
           🛒<span className="cart-count">{cartItemCount}</span>
         </Link>
 
         {loggedInUser ? (
-          <div className="user-info">
-            <span className="user-name">{loggedInUser.name}</span>
-            <img src="/images/user-icon.png" alt="User Icon" className="user-icon" />
-            <div className="dropdown">
-              <Link to="/profile">Profile</Link>
-              <Link to="/order-history">Order History</Link>
-              <button onClick={handleLogout}>Logout</button>
+          <div
+            className="user-menu-container"
+            onMouseEnter={() => setShowUserMenu(true)}
+            onMouseLeave={() => setShowUserMenu(false)}
+          >
+            <div className="user-info">
+              <span className="user-name">{loggedInUser.name}</span>
+              <img src="/images/user-icon.png" alt="User Icon" className="user-icon-image" />
             </div>
+            {showUserMenu && (
+              <div className="user-dropdown-menu">
+                <Link to="/profile">Profile</Link>
+                <Link to="/order-history">Order History</Link>
+                <button onClick={handleLogout}>Logout</button>
+              </div>
+            )}
           </div>
         ) : (
           <div className="auth-links">

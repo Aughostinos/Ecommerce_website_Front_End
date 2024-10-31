@@ -4,7 +4,6 @@ import './Slider.css';
 const slides = [
   { id: 1, image: '/images/slide1.png' },
   { id: 2, image: '/images/slide2.png'},
-  { id: 3, image: '/images/slide3.jpg'}
 ];
 
 const Slider = () => {

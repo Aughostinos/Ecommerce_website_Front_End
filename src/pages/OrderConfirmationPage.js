@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import BACKEND_URL from '../config';
 import './OrderConfirmationPage.css';
@@ -7,23 +7,35 @@ import './OrderConfirmationPage.css';
 const OrderConfirmationPage = () => {
   const { id } = useParams();
   const [order, setOrder] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchOrder = async () => {
+    // Fetch the order details
+    const fetchOrderDetails = async () => {
       try {
         const response = await axios.get(`${BACKEND_URL}/order/${id}`, {
           withCredentials: true,
         });
-        setOrder(response.data.order);
+        setOrder(response.data);
+        setLoading(false);
       } catch (error) {
-        console.error('Error fetching order:', error);
+        console.error('Error fetching order details:', error);
+        setLoading(false);
       }
     };
 
-    fetchOrder();
+    fetchOrderDetails();
   }, [id]);
 
-  if (!order) return <p>Loading...</p>;
+  if (loading) {
+    return <p>Loading order details...</p>;
+  }
+
+  if (!order) {
+    return <p>Order not found.</p>;
+  }
+
 
   return (
     <div className="order-confirmation">
@@ -41,6 +53,10 @@ const OrderConfirmationPage = () => {
       <p>
         Please prepare the payment of ${order.totalPrice.toFixed(2)} in cash upon delivery.
       </p>
+      <div className="confirmation-buttons">
+        <button onClick={() => navigate('/')}>Back to Home</button>
+        <button onClick={() => navigate('/order-history')}>View Order History</button>
+      </div>
     </div>
   );
 };

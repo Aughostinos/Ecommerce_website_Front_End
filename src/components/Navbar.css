@@ -197,7 +197,8 @@
   border: none;
   color: white;
   cursor: pointer;
-  margin-right: 20px;
+  margin-right: 0;
+  font-size: 20px;
 }
 
 .auth-links {

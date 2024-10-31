@@ -6,7 +6,9 @@ import './FeaturedProducts.css';
 
 const FeaturedProducts = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
-  const [favorites, setFavorites] = useState([]);
+  const [cart, setCart] = useState({});
+  const [wishlist, setWishlist] = useState([]);
+
 
   useEffect(() => {
     const groupProductsByCategory = (products) => {
@@ -24,7 +26,6 @@ const FeaturedProducts = () => {
       return grouped;
     };
     fetchFeaturedProducts();
-    fetchFavorites();
   }, []);
 
 
@@ -37,50 +38,77 @@ const FeaturedProducts = () => {
     }
   };
 
-  const fetchFavorites = async () => {
-    try {
-      const response = await axios.get(`${BACKEND_URL}/user/favorites`, {
-        withCredentials: true,
-      });
-      setFavorites(response.data.favorites);
-    } catch (error) {
-      console.error('Error fetching favorites:', error);
-    }
-  };
-
-  const toggleFavorite = async (productId) => {
-    try {
-      if (favorites.includes(productId)) {
-        // Remove from favorites
-        await axios.delete(`${BACKEND_URL}/user/favorites/${productId}`, {
+  useEffect(() => {
+    const fetchWishlist = async () => {
+      try {
+        const response = await axios.get(`${BACKEND_URL}/user/get-cart-wishlist`, {
           withCredentials: true,
         });
-        setFavorites(favorites.filter((id) => id !== productId));
-      } else {
-        // Add to favorites
-        await axios.post(
-          `${BACKEND_URL}/user/favorites`,
-          { productId },
-          { withCredentials: true }
-        );
-        setFavorites([...favorites, productId]);
+        setWishlist(response.data.wishlist.map((item) => item._id));
+      } catch (error) {
+        console.error('Failed to fetch wishlist:', error);
       }
+    };
+
+    fetchWishlist();
+  }, []);
+
+  // Toggle wishlist functionality
+  const toggleWishlist = async (productId) => {
+    const inWishlist = wishlist.includes(productId);
+
+    try {
+      const endpoint = inWishlist ? 'remove-from-wishlist' : 'add-to-wishlist';
+      // Use POST method for both adding and removing from wishlist
+      await axios.post(
+        `${BACKEND_URL}/user/${endpoint}`,
+        { productId },
+        { withCredentials: true }
+      );
+
+      // Update wishlist state
+      setWishlist((prev) =>
+        inWishlist ? prev.filter((id) => id !== productId) : [...prev, productId]
+      );
+      console.log('Wishlist updated successfully');
     } catch (error) {
-      console.error('Error updating favorites:', error);
+      console.error('Error updating wishlist:', error);
     }
   };
 
-  const addToCart = async (productId) => {
+  // Add or remove product from the cart
+  const updateCart = async (productId, quantity) => {
     try {
-      await axios.post(
-        `${BACKEND_URL}/cart`,
-        { productId, quantity: 1 },
-        { withCredentials: true }
-      );
+      if (quantity < 0) return;
+
+      const endpoint = quantity === 0 ? 'remove-from-cart' : 'add-to-cart';
+      const method = 'post'; // Use POST method for both adding and removing
+
+      await axios({
+        method: method,
+        url: `${BACKEND_URL}/user/${endpoint}`,
+        data: { productId },
+        withCredentials: true,
+      });
+
+      setCart((prev) => {
+        const updatedCart = { ...prev };
+
+        if (quantity === 0) {
+          delete updatedCart[productId];
+        } else {
+          updatedCart[productId] = quantity;
+        }
+
+        return updatedCart;
+      });
+
+      console.log('Cart updated successfully');
     } catch (error) {
-      console.error('Error adding to cart:', error);
+      console.error('Error updating cart:', error);
     }
   };
+
 
   return (
     <div>
@@ -93,9 +121,9 @@ const FeaturedProducts = () => {
               <img src={product.image[0]} alt={product.name} />
             </Link>
             <button
-              className={`favorite-button ${favorites.includes(product._id) ? 'favorited' : ''
+              className={`favorite-button ${wishlist.includes(product._id) ? 'favorited' : ''
                 }`}
-              onClick={() => toggleFavorite(product._id)}
+              onClick={() => toggleWishlist(product._id)}
             >
               <i className="fa fa-heart"></i>
             </button>
@@ -105,7 +133,7 @@ const FeaturedProducts = () => {
               <h3>{product.name}</h3>
             </Link>
             <p>${product.price.toFixed(2)}</p>
-            <button onClick={() => addToCart(product._id)}>Add to Cart</button>
+            <button onClick={() => updateCart(product._id)}>Add to Cart</button>
           </div>
         </div>
       ))}

@@ -1,0 +1,67 @@
+.manage-categories {
+    padding: 20px;
+  }
+  
+  .manage-categories h2 {
+    margin-bottom: 20px;
+    color: #19737a;
+  }
+  
+  .category-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+  }
+  
+  .category-form input,
+  .category-form textarea {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .category-form button {
+    width: 150px;
+    padding: 10px;
+    background-color: #19737a;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .category-form button:hover {
+    background-color: #24b3ba;
+  }
+  
+  .categories-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .categories-table th,
+  .categories-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .categories-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .categories-table button {
+    background-color: #19737a;
+    color: #fff;
+    border: none;
+    padding: 5px 8px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 5px;
+  }
+  
+  .categories-table button:hover {
+    background-color: #24b3ba;
+  }
+  

@@ -1,0 +1,28 @@
+.admin-dashboard {
+    padding: 20px;
+  }
+  
+  .admin-dashboard h2 {
+    margin-bottom: 20px;
+    color: #19737a;
+  }
+  
+  .admin-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .admin-sections a {
+    background-color: #19737a;
+    color: #fff;
+    padding: 12px;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .admin-sections a:hover {
+    background-color: #24b3ba;
+  }
+  

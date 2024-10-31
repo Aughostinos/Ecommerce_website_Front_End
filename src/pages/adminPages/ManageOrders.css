@@ -1,0 +1,30 @@
+.manage-orders {
+    padding: 20px;
+  }
+  
+  .manage-orders h2 {
+    margin-bottom: 20px;
+    color: #19737a;
+  }
+  
+  .orders-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .orders-table th,
+  .orders-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .orders-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .orders-table select {
+    padding: 5px;
+    border-radius: 5px;
+  }
+  

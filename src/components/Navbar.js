@@ -13,6 +13,7 @@ const Navbar = ({ loggedInUser, setLoggedInUser }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [wishlistItemCount, setWishlistItemCount] = useState(0);
+  const isAdmin = loggedInUser && loggedInUser.role === 'admin';
 
   // Fetch cart item count
   useEffect(() => {
@@ -132,6 +133,11 @@ const Navbar = ({ loggedInUser, setLoggedInUser }) => {
       )}
 
       <div className="navbar-right">
+        {isAdmin && (
+          <Link to="/admin" className="admin-link">
+            Admin Panel
+          </Link>
+        )}
         
         <Link to="/wishlist" className="wishlist-icon">
           ❤️<span className="wishlist-count">{wishlistItemCount}</span>
@@ -161,8 +167,7 @@ const Navbar = ({ loggedInUser, setLoggedInUser }) => {
         >
           🌙
         </button>
-
-        {/* Cart Icon as a Link */}
+        
         <Link to="/cart" className="cart-icon">
           🛒<span className="cart-count">{cartItemCount}</span>
         </Link>

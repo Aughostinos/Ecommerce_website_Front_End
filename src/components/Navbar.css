@@ -310,3 +310,15 @@ button:hover {
     display: block;
   }
 }
+
+/*admin link styling*/
+.admin-link {
+  color: var(--navbar-text-color);
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+.admin-link:hover {
+  color: var(--link-hover-color);
+}

@@ -15,12 +15,18 @@ import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
 import OrderConfirmationPage from './pages/OrderConfirmationPage';
 import WishlistPage from './pages/WishlistPage';
+import AdminDashboard from './pages/adminPages/AdminDashboard';
+import ManageUsers from './pages/adminPages/ManageUsers';
+import ManageProducts from './pages/adminPages/ManageProducts';
+import ManageOrders from './pages/adminPages/ManageOrders';
+import ManageCategories from './pages/adminPages/ManageCategories';
 import axios from 'axios';
 import BACKEND_URL from './config';
 import './App.css';
 
 const App = () => {
   const [loggedInUser, setLoggedInUser] = useState(null);
+  const isAdmin = loggedInUser && loggedInUser.role === 'admin';
 
   // Check if user is logged in by checking the JWT cookie
   useEffect(() => {
@@ -63,7 +69,17 @@ const App = () => {
           path="/wishlist"
           element={loggedInUser ? <WishlistPage /> : <Navigate to="/login" />}
         />
-         <Route path="*" element={<NotFound />} />
+        {isAdmin && (
+          <>
+            <Route path="/admin" element={<AdminDashboard />} />
+         
+         <Route path="/admin/users" element={<ManageUsers />} />
+         <Route path="/admin/products" element={<ManageProducts />} />
+         <Route path="/admin/orders" element={<ManageOrders />} />
+         <Route path="/admin/categories" element={<ManageCategories />} />
+         </>
+        )}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

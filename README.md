@@ -1,10 +1,3 @@
-Certainly! Below are two comprehensive README files tailored for your project: one for the **Frontend** and another for the **Backend**. These README files include essential sections such as project overview, features, technologies used, installation instructions, usage guidelines, and more to help users and developers understand and set up your application effectively.
-
----
-
-## **Frontend README**
-
-```markdown
 # E-Commerce Frontend
 
 Welcome to the **E-Commerce Frontend** repository! This is the client-side application of our e-commerce platform, built using React. It provides a seamless and interactive user experience, allowing users to browse products, manage their cart and wishlist, and handle user authentication.

@@ -1,56 +1,54 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import BACKEND_URL from '../config';
 import './FeaturedProducts.css';
 
 const FeaturedProducts = () => {
+  const navigate = useNavigate();
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [cart, setCart] = useState({});
   const [wishlist, setWishlist] = useState([]);
 
-
+  // Fetch featured products
   useEffect(() => {
-    const groupProductsByCategory = (products) => {
-      const grouped = {};
-      products.forEach((product) => {
-        const categoryId = product.category._id || product.category;
-        if (!grouped[categoryId]) {
-          grouped[categoryId] = {
-            categoryName: product.category.categoryName || 'Unknown Category',
-            products: [],
-          };
-        }
-        grouped[categoryId].products.push(product);
-      });
-      return grouped;
+    const fetchFeaturedProducts = async () => {
+      try {
+        const response = await axios.get(`${BACKEND_URL}/products/featured`);
+        setFeaturedProducts(response.data);
+      } catch (error) {
+        console.error('Error fetching featured products:', error);
+      }
     };
+
     fetchFeaturedProducts();
   }, []);
 
-
-  const fetchFeaturedProducts = async () => {
-    try {
-      const response = await axios.get(`${BACKEND_URL}/products/featured`);
-      setFeaturedProducts(response.data);
-    } catch (error) {
-      console.error('Error fetching featured products:', error);
-    }
-  };
-
+  // Fetch cart and wishlist data
   useEffect(() => {
-    const fetchWishlist = async () => {
+    const fetchCartAndWishlist = async () => {
       try {
         const response = await axios.get(`${BACKEND_URL}/user/get-cart-wishlist`, {
           withCredentials: true,
         });
-        setWishlist(response.data.wishlist.map((item) => item._id));
+        const cartItems = response.data.cart;
+        const wishlistItems = response.data.wishlist;
+
+        // Initialize cart state
+        const initialCart = {};
+        cartItems.forEach((item) => {
+          initialCart[item.product._id] = item.quantity;
+        });
+        setCart(initialCart);
+
+        // Initialize wishlist state
+        setWishlist(wishlistItems.map((item) => item._id));
       } catch (error) {
-        console.error('Failed to fetch wishlist:', error);
+        console.error('Failed to fetch cart and wishlist:', error);
       }
     };
 
-    fetchWishlist();
+    fetchCartAndWishlist();
   }, []);
 
   // Toggle wishlist functionality
@@ -59,7 +57,6 @@ const FeaturedProducts = () => {
 
     try {
       const endpoint = inWishlist ? 'remove-from-wishlist' : 'add-to-wishlist';
-      // Use POST method for both adding and removing from wishlist
       await axios.post(
         `${BACKEND_URL}/user/${endpoint}`,
         { productId },
@@ -76,13 +73,13 @@ const FeaturedProducts = () => {
     }
   };
 
-  // Add or remove product from the cart
+  // Update cart quantity
   const updateCart = async (productId, quantity) => {
     try {
       if (quantity < 0) return;
 
       const endpoint = quantity === 0 ? 'remove-from-cart' : 'add-to-cart';
-      const method = 'post'; // Use POST method for both adding and removing
+      const method = 'post';
 
       await axios({
         method: method,
@@ -109,35 +106,54 @@ const FeaturedProducts = () => {
     }
   };
 
+  // Navigate to product details page
+  const handleProductClick = (productId) => {
+    navigate(`/product/${productId}`);
+  };
 
   return (
-    <div>
-    <h2>Featured Products</h2>
     <div className="featured-products">
-      {featuredProducts.map((product) => (
-        <div className="product-card" key={product._id}>
-          <div className="product-image">
-            <Link to={`/product/${product._id}`}>
-              <img src={product.image[0]} alt={product.name} />
-            </Link>
-            <button
-              className={`favorite-button ${wishlist.includes(product._id) ? 'favorited' : ''
-                }`}
-              onClick={() => toggleWishlist(product._id)}
-            >
-              <i className="fa fa-heart"></i>
-            </button>
-          </div>
-          <div className="product-info">
-            <Link to={`/product/${product._id}`}>
-              <h3>{product.name}</h3>
-            </Link>
-            <p>${product.price.toFixed(2)}</p>
-            <button onClick={() => updateCart(product._id)}>Add to Cart</button>
-          </div>
-        </div>
-      ))}
-    </div>
+      <h2>Featured Products</h2>
+      <div className="product-list">
+        {featuredProducts.map((product) => {
+          const inWishlist = wishlist.includes(product._id);
+          const productQuantity = cart[product._id] || 0;
+
+          return (
+            <div key={product._id} className="product-card">
+              <img
+                src={product.image[0] || 'default-image-url.jpg'}
+                alt={product.name}
+                onClick={() => handleProductClick(product._id)}
+              />
+              <h2>{product.name}</h2>
+              <p>${product.price}</p>
+              <div className="product-actions">
+                <button
+                  className={`wishlist-button ${inWishlist ? 'filled' : 'outlined'}`}
+                  onClick={() => toggleWishlist(product._id)}
+                >
+                  {inWishlist ? '❤️' : '🤍'}
+                </button>
+                <div className="cart-controls">
+                  <button
+                    onClick={() => updateCart(product._id, productQuantity - 1)}
+                    disabled={productQuantity <= 1}
+                  >
+                    ➖
+                  </button>
+                  <span>{productQuantity}</span>
+                  <button
+                    onClick={() => updateCart(product._id, productQuantity + 1)}
+                  >
+                    ➕
+                  </button>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

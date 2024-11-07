@@ -4,7 +4,10 @@
   justify-content: space-between;
   background-color: #19737a;
   padding: 10px 20px;
-  position: relative;
+  position: fixed;
+  width: 98%;
+  top: 0;
+  z-index: 1000;
 }
 
 .navbar-left {
@@ -46,6 +49,10 @@
 .nav-menu li span:hover {
   background-color: #24b3ba;
   border-radius: 4px;
+}
+
+.main-content {
+  padding-top: 60px;
 }
 
 /* Dropdown Menu Styles */

@@ -3,6 +3,10 @@
     color: white;
     padding: 40px 20px;
     font-family: Arial, sans-serif;
+    bottom: 0;
+    width: 97.5%;
+    position: relative;
+
   }
   
   .footer-container {

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import BACKEND_URL from '../config';
 //import './AuthForms.css';
-import './Login.css';
+import './style/Login.css';
 
 const Login = ({ setLoggedInUser }) => {
   const [formData, setFormData] = useState({ email: '', password: '' });

@@ -3,7 +3,7 @@ import Slider from '../components/Slider';
 import FeaturedProducts from '../components/FeaturedProducts';
 import FlashSale from '../components/FlashSale';
 import Testimonials from '../components/Testimonials';
-import './Home.css';
+import './style/Home.css';
 
 const Home = () => {
   return (

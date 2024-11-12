@@ -1,8 +1,9 @@
+// src/pages/ProductDetailsPage.js
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import BACKEND_URL from '../config';
-import './ProductDetailsPage.css';
+import './style/ProductDetailsPage.css';
 
 const ProductDetailsPage = () => {
   const { id } = useParams();
@@ -21,13 +22,21 @@ const ProductDetailsPage = () => {
         const productResponse = await axios.get(`${BACKEND_URL}/products/get-product/${id}`);
         setProduct(productResponse.data);
 
-        // Fetch cart and wishlist status
+        // Fetch cart and wishlist data
         const statusResponse = await axios.get(`${BACKEND_URL}/user/get-cart-wishlist`, {
           withCredentials: true,
         });
 
-        setInCart(statusResponse.data.cart.some((item) => item._id === id));
-        setInWishlist(statusResponse.data.wishlist.some((item) => item._id === id));
+        const cartItems = statusResponse.data.cart;
+        const wishlistItems = statusResponse.data.wishlist;
+
+        // Check if product is in cart
+        const isInCart = cartItems.some((item) => item.product._id === id);
+        setInCart(isInCart);
+
+        // Check if product is in wishlist
+        const isInWishlist = wishlistItems.some((item) => item._id === id);
+        setInWishlist(isInWishlist);
 
         // Fetch product reviews
         const reviewsResponse = await axios.get(`${BACKEND_URL}/products/${id}/reviews`, {
@@ -43,34 +52,42 @@ const ProductDetailsPage = () => {
     fetchProductData();
   }, [id, navigate]);
 
+  // Handle adding/removing product from cart
   const handleCartToggle = async () => {
     try {
-      const endpoint = inCart ? 'remove-from-cart' : 'add-to-cart';
-      const method = inCart ? 'delete' : 'post';
-
-      await axios({
-        method,
-        url: `${BACKEND_URL}/user/${endpoint}`,
-        data: { productId: id },
-        withCredentials: true,
-      });
-      setInCart(!inCart);
+      if (inCart) {
+        // Remove from cart
+        await axios.post(
+          `${BACKEND_URL}/user/remove-from-cart`,
+          { productId: id },
+          { withCredentials: true }
+        );
+        setInCart(false);
+      } else {
+        // Add to cart with specified quantity
+        await axios.post(
+          `${BACKEND_URL}/user/add-to-cart`,
+          { productId: id, quantity },
+          { withCredentials: true }
+        );
+        setInCart(true);
+      }
     } catch (error) {
       console.error('Error updating cart:', error);
     }
   };
 
+  // Handle adding/removing product from wishlist
   const handleWishlistToggle = async () => {
     try {
       const endpoint = inWishlist ? 'remove-from-wishlist' : 'add-to-wishlist';
-      const method = inWishlist ? 'delete' : 'post';
+      // Use POST method for both actions
+      await axios.post(
+        `${BACKEND_URL}/user/${endpoint}`,
+        { productId: id },
+        { withCredentials: true }
+      );
 
-      await axios({
-        method,
-        url: `${BACKEND_URL}/user/${endpoint}`,
-        data: { productId: id },
-        withCredentials: true,
-      });
       setInWishlist(!inWishlist);
     } catch (error) {
       console.error('Error updating wishlist:', error);
@@ -90,7 +107,6 @@ const ProductDetailsPage = () => {
   };
 
   if (!product) return <p>Loading...</p>;
-  console.log(product.image);
 
   return (
     <div className="product-details">
@@ -125,11 +141,14 @@ const ProductDetailsPage = () => {
         <p className="price">Price: ${product.price}</p>
 
         <div className="cart-controls">
-          <button onClick={() => setQuantity(quantity - 1)} disabled={quantity === 1}>
+          <button
+            onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
+            disabled={quantity === 1}
+          >
             ➖
           </button>
           <span>{quantity}</span>
-          <button onClick={() => setQuantity(quantity + 1)}>➕</button>
+          <button onClick={() => setQuantity((prev) => prev + 1)}>➕</button>
         </div>
 
         <button onClick={handleCartToggle}>
@@ -148,7 +167,9 @@ const ProductDetailsPage = () => {
           {reviews.length > 0 ? (
             reviews.map((review) => (
               <div key={review._id} className="review">
-                <p><strong>{review.userId?.name || 'Anonymous'}</strong></p>
+                <p>
+                  <strong>{review.userId?.name || 'Anonymous'}</strong>
+                </p>
                 <p>{review.comment}</p>
                 <p>Rating: {review.rating}/5</p>
               </div>
@@ -158,7 +179,7 @@ const ProductDetailsPage = () => {
           )}
         </div>
 
-        {/* I'll add a form here to submit a new review */}
+        {/* You can add a form here to submit a new review */}
       </div>
     </div>
   );

@@ -1,0 +1,34 @@
+.featured-products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+.title {
+  margin-bottom: 20px;
+  color: #19737a;
+  text-align: center;.featured-products {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+  
+  .category-group {
+    margin-bottom: 40px;
+  }
+  
+  .category-group h2 {
+    text-align: left;
+    margin-bottom: 20px;
+  }
+  
+  .category-group .products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+
+}
+
+

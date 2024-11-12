@@ -1,0 +1,24 @@
+.category-page {
+  
+  padding: 20px;
+}
+
+.category-page h1 {
+  margin-bottom: 20px;
+  color: #19737a;
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.product-card {
+  width: 250px;
+  padding: 15px;
+  background-color: #f7e8df;
+  border-radius: 8px;
+  text-align: center;
+  position: relative;
+}

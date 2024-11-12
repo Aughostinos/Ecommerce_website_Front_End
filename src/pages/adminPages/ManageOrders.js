@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import BACKEND_URL from '../../config';
-import './ManageOrders.css';
+import './style/ManageOrders.css';
 
 const ManageOrders = () => {
   const [orders, setOrders] = useState([]);

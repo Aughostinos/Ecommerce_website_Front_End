@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import './Slider.css';
+import { Link } from 'react-router-dom';
+import './style/Slider.css';
 
 const slides = [
   { id: 1, image: '/images/slide1.png' },
@@ -27,7 +28,7 @@ const Slider = () => {
           <img src={slide.image} alt={`Slide ${slide.id}`} />
           <div className="slide-content">
             <h2>{slide.text}</h2>
-            <button className="shop-now-btn">Shop Now</button>
+            <Link to="/products" className="shop-now-btn">Shop Now</Link>
           </div>
         </div>
       ))}

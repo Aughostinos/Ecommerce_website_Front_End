@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import axios from 'axios';
 import BACKEND_URL from '../config';
-import './SearchResults.css';
+import './style/SearchResults.css';
 
 const SearchResults = () => {
   const [products, setProducts] = useState([]);

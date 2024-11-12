@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import BACKEND_URL from '../config';
-import './OrderConfirmationPage.css';
+import './style/OrderConfirmationPage.css';
 
 const OrderConfirmationPage = () => {
   const { id } = useParams();

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './FlashSale.css';
+import './style/FlashSale.css';
 
 const FlashSale = () => {
   const [timeLeft, setTimeLeft] = useState(3600);

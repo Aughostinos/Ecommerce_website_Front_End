@@ -5,16 +5,16 @@ import BACKEND_URL from '../config';
 import ProductCard from '../components/ProductCard';
 import './style/CategoryPage.css';
 
-const CategoryPage = () => {
+const AllProducts = () => {
   const { id } = useParams();
   const [products, setProducts] = useState([]);
 
-  // Fetch products by category
+  // Fetch all products
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
-          `${BACKEND_URL}/products/get-products-by-category/${id}`
+          `${BACKEND_URL}/products/`
         );
         setProducts(response.data);
       } catch (error) {
@@ -27,7 +27,7 @@ const CategoryPage = () => {
 
   return (
     <div className="category-page">
-      <h1>Products</h1>
+      <h1>All Products</h1>
       <div className="product-list">
         {products.map((product) => (
           <ProductCard key={product._id} product={product} />
@@ -37,4 +37,4 @@ const CategoryPage = () => {
   );
 };
 
-export default CategoryPage;
+export default AllProducts;

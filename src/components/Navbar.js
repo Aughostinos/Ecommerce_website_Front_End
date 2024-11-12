@@ -1,42 +1,29 @@
-import React, { useEffect, useState } from 'react';
+// src/components/Navbar.js
+import React, { useEffect, useState, useContext } from 'react';
+import { UserContext } from '../context/UserContext';
+import { CartContext } from '../context/CartContext';
+import { WishlistContext } from '../context/WishlistContext';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import BACKEND_URL from '../config';
-import './Navbar.css';
+import './style/Navbar.css';
 
-const Navbar = ({ loggedInUser, setLoggedInUser }) => {
+const Navbar = () => {
   const navigate = useNavigate();
-  const [cartItemCount, setCartItemCount] = useState(0);
+  const { user, setUser } = useContext(UserContext);
+  const { cart } = useContext(CartContext);
+  const { wishlist } = useContext(WishlistContext);
+
+  const cartItemCount = Object.values(cart).reduce((total, item) => total + item.quantity, 0);
+  const wishlistItemCount = wishlist.length;
+
   const [categories, setCategories] = useState([]);
   const [showSearch, setShowSearch] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [wishlistItemCount, setWishlistItemCount] = useState(0);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showMobileCategories, setShowMobileCategories] = useState(false);
-  const isAdmin = loggedInUser && loggedInUser.role === 'admin';
-
-  // Fetch cart and wishlist item counts
-  useEffect(() => {
-    const fetchCounts = async () => {
-      try {
-        const response = await axios.get(`${BACKEND_URL}/user/get-cart-wishlist`, {
-          withCredentials: true,
-        });
-        const cartItems = response.data.cart || [];
-        const wishlistItems = response.data.wishlist || [];
-        const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
-        setCartItemCount(cartCount);
-        setWishlistItemCount(wishlistItems.length);
-      } catch (error) {
-        console.error('Failed to fetch counts:', error);
-      }
-    };
-
-    if (loggedInUser) {
-      fetchCounts();
-    }
-  }, [loggedInUser]);
+  const isAdmin = user && user.role === 'admin';
 
   // Fetch categories from the backend
   useEffect(() => {
@@ -54,7 +41,7 @@ const Navbar = ({ loggedInUser, setLoggedInUser }) => {
 
   const handleLogout = () => {
     document.cookie = 'jwt=; Max-Age=0; path=/;';
-    setLoggedInUser(null);
+    setUser(null);
     navigate('/login');
   };
 
@@ -84,11 +71,10 @@ const Navbar = ({ loggedInUser, setLoggedInUser }) => {
       {/* Desktop Menu */}
       <ul className="nav-menu">
         <li><Link to="/">Home</Link></li>
-        <li
-          className="dropdown"
-        >
+        <li className="dropdown">
           <span className="dropdown-toggle">Categories ▼</span>
           <ul className="dropdown-menu">
+            <li><Link to="/products/">All Products</Link></li>
             {categories.map((category) => (
               <li key={category._id}>
                 <Link to={`/category/${category._id}`}>{category.categoryName}</Link>
@@ -98,12 +84,13 @@ const Navbar = ({ loggedInUser, setLoggedInUser }) => {
         </li>
         <li><Link to="/about-us">About Us</Link></li>
         <li><Link to="/contact-us">Contact Us</Link></li>
-        <li>{isAdmin && (
-          <Link to="/admin" className="admin-link">
-            Admin Panel
-          </Link>
-        )}</li>
-
+        {isAdmin && (
+          <li>
+            <Link to="/admin" className="admin-link">
+              Admin Panel
+            </Link>
+          </li>
+        )}
       </ul>
 
       {/* Mobile Menu Toggle */}
@@ -121,7 +108,13 @@ const Navbar = ({ loggedInUser, setLoggedInUser }) => {
               <ul className="dropdown-content">
                 {categories.map((category) => (
                   <li key={category._id}>
-                    <Link to={`/category/${category._id}`} onClick={() => { setIsMobileMenuOpen(false); setShowMobileCategories(false); }}>
+                    <Link
+                      to={`/category/${category._id}`}
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        setShowMobileCategories(false);
+                      }}
+                    >
                       {category.categoryName}
                     </Link>
                   </li>
@@ -131,7 +124,7 @@ const Navbar = ({ loggedInUser, setLoggedInUser }) => {
           </li>
           <li><Link to="/about-us" onClick={() => setIsMobileMenuOpen(false)}>About Us</Link></li>
           <li><Link to="/contact-us" onClick={() => setIsMobileMenuOpen(false)}>Contact Us</Link></li>
-          {loggedInUser ? (
+          {user ? (
             <>
               <li><Link to="/profile" onClick={() => setIsMobileMenuOpen(false)}>Profile</Link></li>
               <li><Link to="/order-history" onClick={() => setIsMobileMenuOpen(false)}>Order History</Link></li>
@@ -164,13 +157,14 @@ const Navbar = ({ loggedInUser, setLoggedInUser }) => {
           ❤️<span className="wishlist-count">{wishlistItemCount}</span>
         </Link>
 
-
         <button
           className="theme-toggle"
-          onClick={() => document.documentElement.setAttribute(
-            'data-theme',
-            document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light'
-          )}
+          onClick={() =>
+            document.documentElement.setAttribute(
+              'data-theme',
+              document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light'
+            )
+          }
         >
           🌙
         </button>
@@ -179,14 +173,14 @@ const Navbar = ({ loggedInUser, setLoggedInUser }) => {
           🛒<span className="cart-count">{cartItemCount}</span>
         </Link>
 
-        {loggedInUser ? (
+        {user ? (
           <div
             className="user-menu-container"
             onMouseEnter={() => setShowUserMenu(true)}
             onMouseLeave={() => setShowUserMenu(false)}
           >
             <div className="user-info">
-              <span className="user-name">{loggedInUser.name}</span>
+              <span className="user-name">{user.name}</span>
               <img src="/images/user-icon.png" alt="User Icon" className="user-icon-image" />
             </div>
             {showUserMenu && (

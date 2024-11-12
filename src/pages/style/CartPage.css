@@ -52,12 +52,11 @@
   }
   
   .quantity-controls button {
-    background-color: #19737a;
-    color: #fff;
+    background-color: #f8e1cc00;
     border: none;
     padding: 5px 10px;
     cursor: pointer;
-    border-radius: 5px;
+    font-size: 1em;
   }
   
   .quantity-controls span {

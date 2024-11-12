@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import BACKEND_URL from '../../config';
-import './ManageCategories.css';
+import './style/ManageCategories.css';
 
 const ManageCategories = () => {
   const [categories, setCategories] = useState([]);

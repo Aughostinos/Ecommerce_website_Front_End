@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import BACKEND_URL from '../config';
-import './OrderHistory.css';
+import './style/OrderHistory.css';
 
 const OrderHistory = () => {
   const [orders, setOrders] = useState([]);

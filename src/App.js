@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -8,6 +7,10 @@ import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import Profile from './pages/Profile';
 import Home from './pages/Home';
+import { UserProvider } from './context/UserContext';
+import { CartProvider } from './context/CartContext';
+import { WishlistProvider } from './context/WishlistContext';
+import AllProducts from './pages/AllProducts';
 import CategoryPage from './pages/CategoryPage';
 import ProductDetailsPage from './pages/ProductDetailsPage';
 import NotFound from './pages/NotFound';
@@ -52,53 +55,62 @@ const App = () => {
 
   return (
     <Router>
-      <Navbar loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
-      <div className="main-content">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/category/:id" element={<CategoryPage />} />
-          <Route path="/about-us" element={<AboutUs />} />
-          <Route path="/contact-us" element={<ContactUs />} />
-          <Route path="/login" element={<Login setLoggedInUser={setLoggedInUser} />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/product/:id" element={<ProductDetailsPage />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route
-            path="/checkout"
-            element={loggedInUser ? <CheckoutPage /> : <Navigate to="/login" replace />}
-          />
-          <Route path="/search" element={<SearchResults />} />
-          <Route
-            path="/order-confirmation/:id"
-            element={loggedInUser ? <OrderConfirmationPage /> : <Navigate to="/login" replace />}
-          />
-          <Route
-            path="/order-history"
-            element={loggedInUser ? <OrderHistory /> : <Navigate to="/login" replace />}
-          />
-          <Route
-            path="/profile"
-            element={loggedInUser ? <Profile /> : <Navigate to="/login" replace />}
-          />
-          <Route
-            path="/wishlist"
-            element={loggedInUser ? <WishlistPage /> : <Navigate to="/login" replace />}
-          />
-          {isAdmin && (
-            <>
-              <Route path="/admin" element={<AdminDashboard />} />
-              <Route path="/admin/users" element={<ManageUsers />} />
-              <Route path="/admin/products" element={<ManageProducts />} />
-              <Route path="/admin/orders" element={<ManageOrders />} />
-              <Route path="/admin/categories" element={<ManageCategories />} />
-            </>
-          )}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </div>
-      <Footer />
+      <UserProvider>
+        <CartProvider>
+          <WishlistProvider>
+            <div className="app-container">
+              <Navbar loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
+              <div className="main-content">
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/products/" element={<AllProducts />} />
+                  <Route path="/category/:id" element={<CategoryPage />} />
+                  <Route path="/about-us" element={<AboutUs />} />
+                  <Route path="/contact-us" element={<ContactUs />} />
+                  <Route path="/login" element={<Login setLoggedInUser={setLoggedInUser} />} />
+                  <Route path="/signup" element={<Signup />} />
+                  <Route path="/forgot-password" element={<ForgotPassword />} />
+                  <Route path="/reset-password" element={<ResetPassword />} />
+                  <Route path="/product/:id" element={<ProductDetailsPage />} />
+                  <Route path="/cart" element={<CartPage />} />
+                  <Route
+                    path="/checkout"
+                    element={loggedInUser ? <CheckoutPage /> : <Navigate to="/login" replace />}
+                  />
+                  <Route path="/search" element={<SearchResults />} />
+                  <Route
+                    path="/order-confirmation/:id"
+                    element={loggedInUser ? <OrderConfirmationPage /> : <Navigate to="/login" replace />}
+                  />
+                  <Route
+                    path="/order-history"
+                    element={loggedInUser ? <OrderHistory /> : <Navigate to="/login" replace />}
+                  />
+                  <Route
+                    path="/profile"
+                    element={loggedInUser ? <Profile /> : <Navigate to="/login" replace />}
+                  />
+                  <Route
+                    path="/wishlist"
+                    element={loggedInUser ? <WishlistPage /> : <Navigate to="/login" replace />}
+                  />
+                  {isAdmin && (
+                    <>
+                      <Route path="/admin" element={<AdminDashboard />} />
+                      <Route path="/admin/users" element={<ManageUsers />} />
+                      <Route path="/admin/products" element={<ManageProducts />} />
+                      <Route path="/admin/orders" element={<ManageOrders />} />
+                      <Route path="/admin/categories" element={<ManageCategories />} />
+                    </>
+                  )}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </div>
+              <Footer />
+            </div>
+          </WishlistProvider>
+        </CartProvider>
+      </UserProvider>
     </Router>
   );
 };

@@ -97,7 +97,7 @@ Before you begin, ensure you have met the following requirements:
 
      ```javascript
      // src/config.js
-     const BACKEND_URL = 'http://localhost:5000'; // Replace with your backend URL
+     const BACKEND_URL = 'http://localhost:5000';
      
      export default BACKEND_URL;
      ```
@@ -722,5 +722,3 @@ Contributions are what make the open-source community such an amazing place to l
 Augustinos Abusaif -  augustinos.nabil@gmail.com
 
 Project Link: \[https://github.com/Aughostinos/Ecommerce_website_Front_End\](https://github.com/Aughostinos/ecommerce_website)
-
-\---

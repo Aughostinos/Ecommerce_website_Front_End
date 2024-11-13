@@ -1,43 +1,33 @@
 .about-us-page {
-    padding: 20px;
-    font-family: Arial, sans-serif;
-  }
-  
-  .about-us-header {
-    text-align: center;
-    margin-bottom: 40px;
-  }
-  
-  .about-us-header h1 {
-    font-size: 36px;
-    margin-bottom: 10px;
-  }
-  
-  .about-us-header p {
-    font-size: 18px;
-    color: #555;
-  }
-  
-  .about-us-content h2 {
-    font-size: 28px;
-    margin-top: 30px;
-    color: #19737a;
-  }
-  
-  .about-us-content p {
-    font-size: 16px;
-    color: #333;
-    line-height: 1.6;
-  }
-  
-  .about-us-content ul {
-    list-style-type: disc;
-    margin-left: 20px;
-  }
-  
-  .about-us-content li {
-    font-size: 16px;
-    color: #333;
-    line-height: 1.6;
-  }
-  
+  padding: 20px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.about-us-page h1 {
+  text-align: center;
+  margin: 40px 0 20px;
+  font-size: 28px;
+  color: var(--primary-color);
+}
+
+.about-us-page h2 {
+  text-align: center;
+  margin: 40px 0 20px;
+  font-size: 28px;
+  color: var(--primary-color);
+}
+
+.about-us-page p {
+  font-size: 1.3em;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.about-us-page ul {
+  list-style-type: none;
+  font-size: 1.3em;
+  text-align: center;
+  margin-bottom: 20px;
+}

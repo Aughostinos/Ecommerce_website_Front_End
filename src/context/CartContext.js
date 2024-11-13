@@ -33,7 +33,6 @@ export const CartProvider = ({ children }) => {
   const updateCart = async (productId, quantity) => {
     try {
       if (quantity < 1) {
-        // Remove from cart
         await axios.post(
           `${BACKEND_URL}/user/remove-from-cart`,
           { productId },

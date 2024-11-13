@@ -13,6 +13,7 @@ const ForgotPassword = () => {
       const response = await axios.post(`${BACKEND_URL}/auth/forgot-password`, { email });
       setMessage(response.data.message);
     } catch (error) {
+      console.error(error);
       setMessage('Failed to send password reset link. Please try again.');
     }
   };

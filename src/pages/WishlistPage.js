@@ -65,7 +65,7 @@ const WishlistPage = () => {
           {wishlistItems.map((item) => (
             <div key={item._id} className="wishlist-item">
               <img
-                src={item.image[0] || '/images/default-product.jpg'}
+                src= {item.image[0]}
                 alt={item.name}
                 onClick={() => handleProductClick(item._id)}
               />

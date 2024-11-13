@@ -109,7 +109,7 @@
     }
   }
   
-  /* Optional: Adjust the styling for dark mode */
+  /* Adjust the styling for dark mode */
   [data-theme='dark'] .product-card {
     background-color: #333;
     color: #fff;

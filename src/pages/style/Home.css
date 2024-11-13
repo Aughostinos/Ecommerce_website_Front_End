@@ -1,7 +1,6 @@
 .home-page {
   padding: 20px;
   background-color: #f9f9f9;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 
@@ -59,3 +58,36 @@
     padding: 10px;
   }
 }
+
+  /* Adjust the styling for dark mode */
+  [data-theme='dark'] .home-page {
+    background-color: #333;
+    color: #fff;
+  }
+
+  [data-theme='dark'] .home-page h2 {
+    color: #fff;
+  }
+
+  [data-theme='dark'] .flash-sale {
+    background-color: #444;
+    color: #fff;
+  }
+
+  [data-theme='dark'] .flash-sale h3 {
+    color: #fff;
+  }
+
+  [data-theme='dark'] .flash-sale p {
+    color: #ccc;
+  }
+
+  [data-theme='dark'] .testimonials {
+    background-color: #444;
+    color: #fff;
+  }
+
+  [data-theme='dark'] .testimonial {
+    background-color: #555;
+    color: #fff;
+  } 

@@ -179,7 +179,6 @@ const ProductDetailsPage = () => {
           )}
         </div>
 
-        {/* You can add a form here to submit a new review */}
       </div>
     </div>
   );

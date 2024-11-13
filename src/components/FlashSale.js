@@ -23,10 +23,10 @@ const FlashSale = () => {
   return (
     <div className="flash-sale">
       <h2>Flash Sale</h2>
-      <h2>Coming Soon</h2>
+      <h3>Coming Soon</h3>
       <div className="countdown-timer">Sale ends in: {formatTime(timeLeft)}</div>
       <div className="flash-products">
-        {/* products */}
+        {/* products will be here for future implementation*/}
       </div>
     </div>
   );

@@ -8,7 +8,6 @@ import './style/FeaturedProducts.css';
 const FeaturedProducts = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
 
-  // Fetch featured products
   useEffect(() => {
     const fetchFeaturedProducts = async () => {
       try {

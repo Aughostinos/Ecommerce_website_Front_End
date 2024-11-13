@@ -45,35 +45,3 @@
     text-align: center;
     color: green;
   }
-
-  .order-history {
-    margin-top: 20px;
-  }
-  
-  .order-card {
-    background-color: #fff;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-  }
-  
-  .order-card h3 {
-    margin: 0 0 10px;
-  }
-  
-  .order-card p {
-    margin: 5px 0;
-  }
-  
-  .order-card button {
-    background-color: #19737a;
-    color: #fff;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .order-card button:hover {
-    background-color: #24b3ba;
-  }

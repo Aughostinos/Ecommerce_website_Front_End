@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import BACKEND_URL from '../config';
-import { useNavigate } from 'react-router-dom';
 import './style/Profile.css';
 
 
@@ -15,8 +14,7 @@ const Profile = () => {
     dateOfBirth: '',
   });
   const [message, setMessage] = useState('');
-  const [orders, setOrders] = useState([]);
-  const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -38,21 +36,8 @@ const Profile = () => {
     };
 
     fetchUserData();
-
-
-    const fetchUserOrders = async () => {
-        try {
-          const response = await axios.get(`${BACKEND_URL}/order/my-orders`, {
-            withCredentials: true,
-          });
-          setOrders(response.data.orders);
-        } catch (error) {
-          console.error('Error fetching user orders:', error);
-        }
-      };
-  
-      fetchUserOrders();
-    }, []);
+  }
+  , []);
 
   
 
@@ -122,24 +107,6 @@ const Profile = () => {
         <button type="submit">Save Changes</button>
       </form>
       {message && <div className="profile-message">{message}</div>}
-      <h2>Order History</h2>
-      {orders.length === 0 ? (
-        <p>You have no orders yet.</p>
-      ) : (
-        <div className="order-history">
-          {orders.map((order) => (
-            <div key={order._id} className="order-card">
-              <h3>Order ID: {order._id}</h3>
-              <p>Date: {new Date(order.createdAt).toLocaleDateString()}</p>
-              <p>Total: ${order.totalPrice.toFixed(2)}</p>
-              <p>Status: {order.status}</p>
-              <button onClick={() => navigate(`/order/${order._id}`)}>
-                View Details
-              </button>
-            </div>
-          ))}
-        </div>
-      )}
     </div>
   );
 };

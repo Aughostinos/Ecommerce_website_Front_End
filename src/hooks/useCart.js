@@ -28,7 +28,6 @@ const useCart = () => {
     const updateCart = async (productId, quantity) => {
         try {
             if (quantity < 1) {
-                // Remove from cart
                 await axios.post(
                     `${BACKEND_URL}/user/remove-from-cart`,
                     { productId },
@@ -40,7 +39,6 @@ const useCart = () => {
                     return updatedCart;
                 });
             } else {
-                // Update cart item
                 await axios.put(
                     `${BACKEND_URL}/user/update-cart-item`,
                     { productId, quantity },

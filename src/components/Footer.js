@@ -24,20 +24,20 @@ const Footer = () => {
         <div className="footer-section">
           <h3>Follow Us</h3>
           <div className="social-icons">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+            <a href="https://facebook.com">
               <i className="fab fa-facebook-f"></i> Facebook
             </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+            <a href="https://twitter.com">
               <i className="fab fa-twitter"></i> Twitter
             </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+            <a href="https://instagram.com">
               <i className="fab fa-instagram"></i> Instagram
             </a>
           </div>
         </div>
       </div>
       <div className="footer-bottom">
-        <p>&copy; {new Date().getFullYear()} E-Shop. All rights reserved.</p>
+        <p>&copy; 2024 E-Shop. All rights reserved.</p>
       </div>
     </footer>
   );

@@ -1,0 +1,12 @@
+.order-item {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    padding: 15px 0;
+  }
+  
+  .order-item img {
+    width: 100px;
+    height: auto;
+    margin-right: 20px;
+  }
+  

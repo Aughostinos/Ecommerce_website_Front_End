@@ -25,7 +25,6 @@ const Navbar = () => {
   const [showMobileCategories, setShowMobileCategories] = useState(false);
   const isAdmin = user && user.role === 'admin';
 
-  // Fetch categories from the backend
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -93,12 +92,11 @@ const Navbar = () => {
         )}
       </ul>
 
-      {/* Mobile Menu Toggle */}
+      {/* Mobile Menu */}
       <div className="mobile-menu-toggle" onClick={handleMobileMenuToggle}>
         ☰
       </div>
 
-      {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <ul className="mobile-nav-menu">
           <li><Link to="/" onClick={() => setIsMobileMenuOpen(false)}>Home</Link></li>
